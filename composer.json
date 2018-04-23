@@ -1,0 +1,19 @@
+{
+    "name": "inkpro/wannafind",
+    "description": "To communicate with the hostedshop API",
+    "authors" : [
+        {
+            "name": "Esben Tind",
+            "email": "esben@inkpro.dk",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wannafind\\": "src/"
+        }
+    }
+}
