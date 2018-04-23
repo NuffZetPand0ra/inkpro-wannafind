@@ -23,7 +23,7 @@ namespace inkpro\wannafind;
 class Wannafind{
 
     /** @var \SoapClient The SOAP client. */
-    protected static $client = null;
+    private $client = null;
     /** @var object[]|false Contains the response from API after receiving all users. Indexed by user id. */
     public $allUsers = false;
     /** @var object[]|false Contains the response from API after receiving all orders. */
