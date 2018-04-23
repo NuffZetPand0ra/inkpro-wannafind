@@ -140,5 +140,15 @@ class Wannafind{
         }
         return $images;
     }
+
+    /**
+     * Searches for products containing a certain string.
+     * 
+     * @param string The string to search for.
+     * @return object[] The search results if any.
+     */
+    function searchProducts(string $search){
+        return $this->callApi("Product_Search",array("SeachString"=>$search));
+    }
 }
 ?>
