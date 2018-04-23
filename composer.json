@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Wannafind\\": "src/"
+            "Inkpro\\Wannafind\\": "src/"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.0.0"
         }
     }
 }
