@@ -34,7 +34,7 @@ class Wannafind{
      * 
      * @return bool True if soap client successfully connected. Throws exception on error.
      */
-    private function __construct(){
+    function __construct(){
         $client = new \SoapClient('https://api.hostedshop.dk/service.wsdl');
         $client->Solution_Connect(array(
             'Username'=>$_ENV['WANNAFIND_USER'],
@@ -44,18 +44,6 @@ class Wannafind{
         $this->callApi("User_SetFields",array("Fields"=>"Id,Firstname,Lastname,Email"));
         $this->callApi("Order_SetFields",array("Fields"=>"Id,OrderLines,CustomerId"));
         return true;
-    }
-
-    /**
-     * Static function to retrieve the singleton object.
-     * 
-     * @return \inkpro\wannafind\Wannafind The singleton with initialized settings.
-     */
-    public static function Client(){
-        if(self::$client == null){
-            self::$client = new Wannafind();
-        }
-        return self::$client;
     }
 
     /**
