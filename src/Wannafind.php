@@ -1,6 +1,8 @@
 <?php
 /**
- * Communication with wannafinds hostedshop API
+ * Communication with wannafinds hostedshop API. Via SOAP!
+ * 
+ * @see https://www.youtube.com/watch?v=RnqAXuLZlaE
  * 
  * @package inkpro\wannafind
  */
