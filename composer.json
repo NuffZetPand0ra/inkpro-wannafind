@@ -16,5 +16,10 @@
         "psr-4": {
             "Wannafind\\": "src/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
