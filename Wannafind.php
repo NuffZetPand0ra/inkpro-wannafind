@@ -21,18 +21,20 @@ namespace inkpro\mailRemarketing;
 class Wannafind{
 
     /** @var \SoapClient The SOAP client. */
-    private $client;
+    protected static $client = null;
     /** @var object[]|false Contains the response from API after receiving all users. Indexed by user id. */
     public $allUsers = false;
     /** @var object[]|false Contains the response from API after receiving all orders. */
     public $orders = false;
+
+    
 
     /**
      * Envokes the soap client with wannafind login details.
      * 
      * @return bool True if soap client successfully connected. Throws exception on error.
      */
-    function __construct(){
+    private function __construct(){
         $client = new \SoapClient('https://api.hostedshop.dk/service.wsdl');
         $client->Solution_Connect(array(
             'Username'=>$_ENV['WANNAFIND_USER'],
@@ -42,6 +44,13 @@ class Wannafind{
         $this->callApi("User_SetFields",array("Fields"=>"Id,Firstname,Lastname,Email"));
         $this->callApi("Order_SetFields",array("Fields"=>"Id,OrderLines,CustomerId"));
         return true;
+    }
+
+    public static function Client(){
+        if(self::$client == null){
+            self::$client = new Wannafind();
+        }
+        return self::$client;
     }
 
     /**
