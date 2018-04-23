@@ -2,9 +2,9 @@
 /**
  * Communication with wannafinds hostedshop API
  * 
- * @package inkpro\mailRemarketing
+ * @package inkpro\wannafind
  */
-namespace inkpro\mailRemarketing;
+namespace inkpro\wannafind;
 /**
  * Wrapper class for communication with the hostedshop API.
  * 
@@ -46,6 +46,11 @@ class Wannafind{
         return true;
     }
 
+    /**
+     * Static function to retrieve the singleton object.
+     * 
+     * @return \inkpro\wannafind\Wannafind The singleton with initialized settings.
+     */
     public static function Client(){
         if(self::$client == null){
             self::$client = new Wannafind();

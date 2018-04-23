@@ -1,6 +1,7 @@
 {
     "name": "inkpro/wannafind",
     "description": "To communicate with the hostedshop API",
+    "license": "MIT",
     "authors" : [
         {
             "name": "Esben Tind",
