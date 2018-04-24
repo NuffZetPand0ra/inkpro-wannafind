@@ -69,9 +69,16 @@ class Wannafind{
         }
     }
 
+    /**
+     * Retrieves a product.
+     * 
+     * @param int $id Id of the product to retrieve.
+     * @return object The product.
+     */
     function getProduct(int $id){
         return $this->callApi("Product_GetById",array("ProductId"=>$id));
     }
+    
     /**
      * Gets all users
      * 
