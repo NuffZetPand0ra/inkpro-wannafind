@@ -69,6 +69,9 @@ class Wannafind{
         }
     }
 
+    function getProduct(int $id){
+        return $this->callApi("Product_GetById",array("ProductId"=>$id));
+    }
     /**
      * Gets all users
      * 
