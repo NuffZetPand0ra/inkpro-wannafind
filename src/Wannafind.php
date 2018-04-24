@@ -45,6 +45,7 @@ class Wannafind{
         $this->client = $client;
         $this->callApi("User_SetFields",array("Fields"=>"Id,Firstname,Lastname,Email"));
         $this->callApi("Order_SetFields",array("Fields"=>"Id,OrderLines,CustomerId"));
+        $this->callApi("Product_SetFields",array("Fields"=>"Id,Ean,Price,BuyingPrice,CategoryId,Title"));
         return true;
     }
 
