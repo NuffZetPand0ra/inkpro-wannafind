@@ -150,5 +150,14 @@ class Wannafind{
     function searchProducts(string $search){
         return $this->callApi("Product_Search",array("SeachString"=>$search));
     }
+
+    /**
+     * Deletes a product.
+     * 
+     * @param int $id Id of the product to delete.
+     */
+    function deleteProduct(int $id){
+        return $this->callApi("Product_Delete",array("ProductId"=>$id));
+    }
 }
 ?>
