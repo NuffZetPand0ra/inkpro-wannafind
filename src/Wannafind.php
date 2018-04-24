@@ -77,10 +77,11 @@ class Wannafind{
      * Retrieves a product.
      * 
      * @param int $id Id of the product to retrieve.
-     * @return object The product.
+     * @return object|false The product, if found. False if there's no product with that id.
      */
     function getProduct(int $id){
-        return $this->callApi("Product_GetById",array("ProductId"=>$id));
+        $return = $this->callApi("Product_GetById",array("ProductId"=>$id));
+        return isset($return->Id) ? $return : false;
     }
 
     /**
