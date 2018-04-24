@@ -63,8 +63,11 @@ class Wannafind{
             case is_bool($response->$responseName):
                 return $response->$responseName;
                 break;
-            default:
+            case isset($response->$responseName->item):
                 return $response->$responseName->item;
+                break;
+            default:
+                return $response->$responseName;
                 break;
         }
     }
@@ -78,7 +81,7 @@ class Wannafind{
     function getProduct(int $id){
         return $this->callApi("Product_GetById",array("ProductId"=>$id));
     }
-    
+
     /**
      * Gets all users
      * 
