@@ -99,6 +99,17 @@ class Wannafind{
     }
 
     /**
+     * Retrieves an order
+     * 
+     * @param int $orderId Id of the order to retrieve
+     * @return object The order object.
+     */
+    function getOrder($orderId){
+        $return = $this->callApi("Order_GetById",array("Id"=>$orderId));
+        return $return;
+    }
+
+    /**
      * Receives all orders from the last 1 day.
      * 
      * @return object[] Array with the orders.
