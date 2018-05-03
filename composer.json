@@ -12,6 +12,9 @@
     "require": {
         "php": ">=5.3.9"
     },
+    "require-dev": {
+        "vlucas/phpdotenv": "^2.4"       
+    },
     "autoload": {
         "psr-4": {
             "Wannafind\\": "src/"
