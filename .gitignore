@@ -2,3 +2,5 @@
 composer.lock
 /.vscode/
 /tests/
+/docs/
+phpdoc.xml

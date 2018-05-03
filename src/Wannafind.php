@@ -15,7 +15,7 @@ namespace inkpro\wannafind;
  * 
  * Make sure you have set the WANNAFIND_USER and WANNAFIND_PASS vars in the environment.
  * 
- * To initiate, use `$wf = new \inkpro\mailRemarketing\Wannafind();`.
+ * To initiate, use `$wf = new \inkpro\wannafind\Wannafind();`.
  * 
  * @author Esben Tind <esben@inkpro.dk>
  * @see https://api.hostedshop.dk/doc/
