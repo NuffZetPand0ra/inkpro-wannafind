@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "php": ">=5.3.9"
+        "php": ">=6.0.0"
     },
     "require-dev": {
-        "vlucas/phpdotenv": "^2.4"       
+        "vlucas/phpdotenv": "^2.4"
     },
     "autoload": {
         "psr-4": {
