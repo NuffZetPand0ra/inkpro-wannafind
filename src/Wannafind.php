@@ -196,10 +196,11 @@ class Wannafind{
      * Gets all images linked to a product id.
      * 
      * @param int $productId Id of the product.
-     * @param string $prefix To prefix the file path. Should be the directory where images are stored.
+     * @param int $shopId The id of the shop (i.e. 1434 for shop1434.hostedshop.dk)
      * @return object[] Array of stdObjects containing data about the image.
      */
-    function getProductImages(int $productId, string $prefix='https://shop1434.hstatic.dk/upload_dir/shop/'){
+    function getProductImages(int $productId, int $shopId){
+        $prefix = 'https://shop'.$shopId.'.hstatic.dk/upload_dir/shop/';
         $images = $this->callApi("Product_GetPictures",array(
             "ProductId"=>$productId
         ));
