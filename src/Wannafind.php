@@ -115,6 +115,20 @@ class Wannafind{
     }
 
     /**
+     * Gets a user by email.
+     * 
+     * @param string $email The email to search for.
+     * @return object|false The user if found, false if user wasn't found.
+     */
+    function getUserByEmail(string $email){
+        $allUsers = $this->getUsers();
+        foreach($allUsers as $user){
+            if($user->Email == $email) return $user;
+        }
+        return false;
+    }
+
+    /**
      * Retrieves an order
      * 
      * @param int $orderId Id of the order to retrieve
