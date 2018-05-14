@@ -84,6 +84,9 @@ class Wannafind{
         foreach($fields as &$field){
             $field = ucfirst($field);
         }
+        if($type == "OrderLine"){
+            return $this->callApi("Order_SetOrderLineFields",array("Fields"=>implode(",",$fields)));
+        }
         return $this->callApi(ucfirst($type)."_SetFields",array("Fields"=>implode(",",$fields)));
     }
     /**
