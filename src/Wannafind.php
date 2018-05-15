@@ -44,7 +44,7 @@ class Wannafind{
         ));
         $this->client = $client;
         $this->setFields("User",array("Id","Firstname","Lastname","Email"));
-        $this->setFields("Order",array("Id","OrderLines","CustomerId"));
+        $this->setFields("Order",array("Id","OrderLines","User","Customer"));
         $this->setFields("Product",array("Id","Ean","Price","BuyingPrice","CategoryId","Title"));
         return true;
     }
@@ -140,24 +140,48 @@ class Wannafind{
     }
 
     /**
-     * Receives all orders from the last 1 day.
+     * Receives all orders from start date to end date.
      * 
+     * Be careful when using, as many orders might consume a lot of memory.
+     * If it consumes all memory, try raising PHP's memory limit.
+     * Sometimes it might also exhaust SOAP's built in memory. If that is the case, use getOrdersFromDate().
+     * 
+     * @param \DateTime $start The first date to get orders from.
+     * @param \DateTime $end The last date to get orders from.
+     * @param array $status The status codes of the orders you want to get.
      * @return object[] Array with the orders.
      */
-    function getOrders(){
-        if($this->orders) return $this->orders;
-        $now = new \DateTime();
-        $then = clone $now;
-        $goingBack = new \DateInterval("P1D");
-        // Sorter fra hvis de er gratis
+    function getOrders(\DateTime $start, \DateTime $end, $status=["1","2","3","4","6","7","8"]){
         $dateFormat = "Y-m-d";
-        $then->sub($goingBack);
         $options = array(
-            "Start"=>$then->format($dateFormat),
-            "End"=>$now->format($dateFormat),
-            "Status"=>"1,2,3,4,6,7,8"
+            "Start"=>$start->format($dateFormat),
+            "End"=>$end->format($dateFormat),
+            "Status"=>implode(",", $status)
         );
         return $this->orders = $this->callApi("Order_GetByDate",$options);
+    }
+
+    /**
+     * Receives all orders from a certain date.
+     * 
+     * Fetches one month at the time to avoid consuming all SOAP's built in ressources.
+     * Use this to get many orders at once. Might take a while to run. Remember to raise memory limit.
+     * 
+     * @param \DateTime $from The first date to get orders from.
+     * @return object[] Array of orders.
+     */
+    function getOrdersFromDate(\DateTime $from){
+        $month = new \DateInterval("P1M");
+        $day = new \DateInterval("P1D");
+        $now = new \DateTime();
+        $orders = [];
+        while($from < $now){
+            $end = clone $from;
+            $end->add($month);
+            $orders = array_merge($orders, $this->getOrders($from, $end));
+            $from->add($month)->add($day);
+        }
+        return $orders;
     }
     
     /**
