@@ -14,6 +14,7 @@ namespace inkpro\wannafind;
  * Hostedshop uses a soap client to pool from their servers.
  * 
  * Make sure you have set the WANNAFIND_USER and WANNAFIND_PASS vars in the environment.
+ * Otherwise you can also supply custom credentials.
  * 
  * To initiate, use `$wf = new \inkpro\wannafind\Wannafind();`.
  * 
@@ -34,14 +35,18 @@ class Wannafind{
     /**
      * Envokes the soap client with wannafind login details.
      * 
+     * @param array|null $credentials Optional credentials to service. If null, we'll use environment vars.
      * @return bool True if soap client successfully connected. Throws exception on error.
      */
-    function __construct(){
+    function __construct($credentials = null){
         $client = new \SoapClient('https://api.hostedshop.dk/service.wsdl');
-        $client->Solution_Connect(array(
-            'Username'=>$_ENV['WANNAFIND_USER'],
-            'Password'=>$_ENV['WANNAFIND_PASS']
-        ));
+        if($credentials == null){
+            $credentials = array(
+                'Username'=>$_ENV['WANNAFIND_USER'],
+                'Password'=>$_ENV['WANNAFIND_PASS']
+            );
+        }
+        $client->Solution_Connect($credentials);
         $this->client = $client;
         $this->setFields("User",array("Id","Firstname","Lastname","Email"));
         $this->setFields("Order",array("Id","OrderLines","User","Customer"));
