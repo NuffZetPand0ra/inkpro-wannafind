@@ -120,6 +120,16 @@ class Wannafind{
     }
 
     /**
+     * Gets a user by id.
+     * 
+     * @param int $id Id of the user to fetch.
+     * @return object The fetched user object.
+     */
+    function getUser(int $id){
+        return $this->callApi("User_GetById",array("Id"=>$id));
+    }
+
+    /**
      * Gets a user by email.
      * 
      * @param string $email The email to search for.
