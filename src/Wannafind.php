@@ -106,12 +106,31 @@ class Wannafind{
     }
 
     /**
+     * Updates a product.
+     * 
+     * @param object $product Product object, should include either Id or ItemNumber prop.
+     */
+    function updateProduct($product){
+        return $this->callApi("Product_Update",["ProductData"=>$product]);
+    }
+
+    /**
+     * Deletes a product
+     * 
+     * @param int $id Id of the product you wish to delete.
+     */
+    function deleteProduct($id){
+        return $this->callApi("Product_Delete",["ProductId"=>$id]);
+    }
+
+    /**
      * Gets all users
      * 
+     * @param bool $cache Do you want to get cached users, if they exist?
      * @return object[] Array with all the users.
      */
-    function getUsers(){
-        if($this->allUsers) return $this->allUsers;
+    function getUsers($cache = true){
+        if($this->allUsers && $cache) return $this->allUsers;
         $response = $this->callApi("User_GetAll");
         foreach($response as $user){
             $this->allUsers[$user->Id] = $user;
@@ -126,7 +145,7 @@ class Wannafind{
      * @return object The fetched user object.
      */
     function getUser(int $id){
-        return $this->callApi("User_GetById",array("Id"=>$id));
+        return $this->callApi("User_GetById",array("UserId"=>$id));
     }
 
     /**
@@ -136,7 +155,8 @@ class Wannafind{
      * @return object|false The user if found, false if user wasn't found.
      */
     function getUserByEmail(string $email){
-        $allUsers = $this->getUsers();
+        $this->setFields("User",array("Id","Email","Firstname","Lastname"));
+        $allUsers = $this->getUsers(false);
         foreach($allUsers as $user){
             if($user->Email == $email) return $user;
         }
@@ -277,15 +297,6 @@ class Wannafind{
      */
     function searchProducts(string $search){
         return $this->callApi("Product_Search",array("SeachString"=>$search));
-    }
-
-    /**
-     * Deletes a product.
-     * 
-     * @param int $id Id of the product to delete.
-     */
-    function deleteProduct(int $id){
-        return $this->callApi("Product_Delete",array("ProductId"=>$id));
     }
 }
 ?>
