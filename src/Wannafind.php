@@ -298,5 +298,9 @@ class Wannafind{
     function searchProducts(string $search){
         return $this->callApi("Product_Search",array("SeachString"=>$search));
     }
+
+    function getAllDeliveries(){
+        return $this->callApi("Delivery_GetAll");
+    }
 }
 ?>
