@@ -302,5 +302,9 @@ class Wannafind{
     function getAllDeliveries(){
         return $this->callApi("Delivery_GetAll");
     }
+
+    function getProductDeliveryTimes(){
+        return $this->callApi("Product_GetDeliveryTimeAll");
+    }
 }
 ?>
