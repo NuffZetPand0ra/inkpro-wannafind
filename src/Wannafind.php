@@ -164,6 +164,17 @@ class Wannafind{
     }
 
     /**
+     * Creates a user.
+     * 
+     * @param object $user User object, corresponding to hostedshop UserCreate schema.
+     * @see https://api.hostedshop.dk/doc/Hosted%20Solution%20API/UserCreate.html
+     * @return int Id of the created user.
+     */
+    function createUser($user){
+        return $this->callApi("User_Create",array("UserData"=>$user));
+    }
+
+    /**
      * Retrieves an order
      * 
      * @param int $orderId Id of the order to retrieve
