@@ -61,7 +61,7 @@ class Wannafind{
      * @param array $settings Settings to pass to the API.
      * @return mixed The response from the API.
      */
-    private function callApi(string $call, array $settings=array()){
+    private function callApi($call, $settings=array()){
         // TODO: Remove response logic, and just return the API response.
         $response = $this->client->$call($settings);
         $responseName = $call."Result";
@@ -85,7 +85,7 @@ class Wannafind{
      * @param string[] $fields Array containing the field names
      * @return bool True on success, false if failure.
      */
-    function setFields(string $type, array $fields){
+    function setFields($type, $fields){
         foreach($fields as &$field){
             $field = ucfirst($field);
         }
@@ -100,7 +100,7 @@ class Wannafind{
      * @param int $id Id of the product to retrieve.
      * @return object|false The product, if found. False if there's no product with that id.
      */
-    function getProduct(int $id){
+    function getProduct ($id){
         $return = $this->callApi("Product_GetById",array("ProductId"=>$id));
         return isset($return->Id) ? $return : false;
     }
@@ -144,7 +144,7 @@ class Wannafind{
      * @param int $id Id of the user to fetch.
      * @return object The fetched user object.
      */
-    function getUser(int $id){
+    function getUser ($id){
         return $this->callApi("User_GetById",array("UserId"=>$id));
     }
 
@@ -154,7 +154,7 @@ class Wannafind{
      * @param string $email The email to search for.
      * @return object|false The user if found, false if user wasn't found.
      */
-    function getUserByEmail(string $email){
+    function getUserByEmail($email){
         $this->setFields("User",array("Id","Email","Firstname","Lastname"));
         $allUsers = $this->getUsers(false);
         foreach($allUsers as $user){
@@ -235,7 +235,7 @@ class Wannafind{
      * 
      * @param int $userId Id of the user to fetch orders from.
      */
-    function getUsersOrders(int $userId){
+    function getUsersOrders ($userId){
         return $this->callApi("Order_GetByDateAndUser",array(
             "UserId"=>$userId,
             "Start"=>null,
@@ -275,7 +275,7 @@ class Wannafind{
      * 
      * @param int $orderId Id of the order to fetch lines from.
      */
-    function getOrderLines(int $orderId){
+    function getOrderLines ($orderId){
         return $this->callApi("Order_GetLines",array("OrderId"));
     }
 
@@ -286,7 +286,7 @@ class Wannafind{
      * @param int $shopId The id of the shop (i.e. 1434 for shop1434.hostedshop.dk)
      * @return object[] Array of stdObjects containing data about the image.
      */
-    function getProductImages(int $productId, int $shopId){
+    function getProductImages ($productId, $shopId){
         $prefix = 'https://shop'.$shopId.'.hstatic.dk/upload_dir/shop/';
         $images = $this->callApi("Product_GetPictures",array(
             "ProductId"=>$productId
@@ -306,7 +306,7 @@ class Wannafind{
      * @param string The string to search for.
      * @return object[] The search results if any.
      */
-    function searchProducts(string $search){
+    function searchProducts($search){
         return $this->callApi("Product_Search",array("SeachString"=>$search));
     }
 
