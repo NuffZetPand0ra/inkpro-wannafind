@@ -21,7 +21,8 @@
         },
         "files":[
             "src/Wannafind.php",
-            "src/Order.php"
+            "src/Order.php",
+            "src/OrderLine.php"
         ]
     }
 }

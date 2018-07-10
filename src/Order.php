@@ -40,7 +40,18 @@ class Order{
     function __construct($data){
         $data = (array)$data;
         foreach($data as $key=>$row){
-            $this->$key = $row;
+            switch($key){
+                case "OrderLines":
+                    $this->OrderLines = [];
+                    foreach($row->item as $orderLine){
+                        $this->OrderLines[] = new OrderLine($row);
+                    }
+                    break;
+
+                default:
+                    $this->$key = $row;
+                    break;
+            }
         }
     }
 }
