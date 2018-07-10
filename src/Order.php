@@ -44,7 +44,7 @@ class Order{
                 case "OrderLines":
                     $this->OrderLines = [];
                     foreach($row->item as $orderLine){
-                        $this->OrderLines[] = new OrderLine($row);
+                        $this->OrderLines[] = new OrderLine($orderLine);
                     }
                     break;
 
