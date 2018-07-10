@@ -181,7 +181,8 @@ class Wannafind{
      * @return object The order object.
      */
     function getOrder($orderId){
-        $return = $this->callApi("Order_GetById",array("OrderId"=>$orderId));
+        $order = $this->callApi("Order_GetById",array("OrderId"=>$orderId));
+        $return = new Order($order); // 576100
         return $return;
     }
 
@@ -204,7 +205,14 @@ class Wannafind{
             "End"=>$end->format($dateFormat),
             "Status"=>implode(",", $status)
         );
-        return $this->orders = $this->callApi("Order_GetByDate",$options);
+        $orders = [];
+        $response = $this->callApi("Order_GetByDate",$options);
+        if(is_array($response) && count($response) > 0){
+            foreach($response as $order){
+                $orders[] = new Order($order);
+            }
+        }
+        return $orders;
     }
 
     /**
@@ -216,7 +224,7 @@ class Wannafind{
      * @param \DateTime $from The first date to get orders from.
      * @return object[] Array of orders.
      */
-    function getOrdersFromDate(\DateTime $from){
+    function getOrdersFromDate(\DateTime $from, $status=["1","2","3","4","6","7","8"]){
         $month = new \DateInterval("P1M");
         $day = new \DateInterval("P1D");
         $now = new \DateTime();
@@ -224,7 +232,7 @@ class Wannafind{
         while($from < $now){
             $end = clone $from;
             $end->add($month);
-            $orders = array_merge($orders, $this->getOrders($from, $end));
+            $orders = array_merge($orders, $this->getOrders($from, $end, $status));
             $from->add($month)->add($day);
         }
         return $orders;
@@ -276,7 +284,29 @@ class Wannafind{
      * @param int $orderId Id of the order to fetch lines from.
      */
     function getOrderLines ($orderId){
-        return $this->callApi("Order_GetLines",array("OrderId"));
+        return $this->callApi("Order_GetLines",array("OrderId"=>$order_id));
+    }
+
+    /**
+     * Updates the comment on an order.
+     * 
+     * @param \inkpro\wannafind\Order $order The order to update.
+     * @param string $comment Optional. If you haven't updated your order object, you can supply this.
+     */
+    function updateOrderComment($order, $comment = null){
+        if($comment) $order->OrderComment = $comment;
+        return $this->callApi("Order_UpdateComment", ["OrderId"=>$order->Id, "Text"=>$order->OrderComment]);
+    }
+
+    /**
+     * Updates the status on an order.
+     * 
+     * @param \inkpro\wannafind\Order $order The order to update.
+     * @param int $status Optional. If you haven't updated your order object, you can supply this.
+     */
+    function updateOrderStatus($order, $status = null){
+        if($status !== null) $order->Status = $status;
+        return $this->callApi("Order_UpdateStatus", ["OrderId"=>$order->Id, "Status"=>$order->Status]);
     }
 
     /**

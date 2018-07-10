@@ -20,7 +20,8 @@
             "Wannafind\\": "src/"
         },
         "files":[
-            "src/Wannafind.php"
+            "src/Wannafind.php",
+            "src/Order.php"
         ]
     }
 }
