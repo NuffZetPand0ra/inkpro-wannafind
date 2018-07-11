@@ -43,8 +43,12 @@ class Order{
             switch($key){
                 case "OrderLines":
                     $this->OrderLines = [];
-                    foreach($row->item as $orderLine){
-                        $this->OrderLines[] = new OrderLine($orderLine);
+                    if(is_array($row->item)){
+                        foreach($row->item as $orderLine){
+                            $this->OrderLines[] = new OrderLine($orderLine);
+                        }
+                    }else{
+                        $this->OrderLines[] = new OrderLine($row->item);
                     }
                     break;
 
