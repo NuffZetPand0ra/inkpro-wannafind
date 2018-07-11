@@ -22,7 +22,8 @@
         "files":[
             "src/Wannafind.php",
             "src/Order.php",
-            "src/OrderLine.php"
+            "src/OrderLine.php",
+            "src/Product.php"
         ]
     }
 }
