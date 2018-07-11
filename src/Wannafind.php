@@ -94,15 +94,34 @@ class Wannafind{
         }
         return $this->callApi(ucfirst($type)."_SetFields",array("Fields"=>implode(",",$fields)));
     }
+
+    /**
+     * Retrieves all products.
+     * 
+     * @return \inkpro\wannafind\Product[] All the products.
+     */
+    function getAllProducts(){
+        $products = $this->callApi("Product_GetAll");
+        $return = [];
+        foreach($products as $product){
+            $return[] = new Product($product);
+        }
+        return $return;
+    }
+
     /**
      * Retrieves a product.
      * 
      * @param int $id Id of the product to retrieve.
      * @return object|false The product, if found. False if there's no product with that id.
      */
-    function getProduct ($id){
+    function getProduct($id){
         $return = $this->callApi("Product_GetById",array("ProductId"=>$id));
-        return isset($return->Id) ? $return : false;
+        if(isset($return->Id)){
+            $product = new Product($return);
+            return $product;
+        }
+        return false;
     }
 
     /**
