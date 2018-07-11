@@ -143,6 +143,20 @@ class Wannafind{
     }
 
     /**
+     * Retrieves all categories.
+     * 
+     * @return \inkpro\wannafind\Category[] Array with the categories.
+     */
+    function getAllCategories(){
+        $categories = $this->callApi("Category_GetAll");
+        $return = [];
+        foreach($categories as $category){
+            $return[] = new Category($category);
+        }
+        return $return;
+    }
+
+    /**
      * Gets all users
      * 
      * @param bool $cache Do you want to get cached users, if they exist?

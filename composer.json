@@ -23,7 +23,8 @@
             "src/Wannafind.php",
             "src/Order.php",
             "src/OrderLine.php",
-            "src/Product.php"
+            "src/Product.php",
+            "src/Category.php"
         ]
     }
 }
