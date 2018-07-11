@@ -76,6 +76,13 @@ class Product{
         $data = (array)$data;
         foreach($data as $key=>$row){
             switch($key){
+                case 'SecondaryCategoryIds':
+                    if(is_array($row->item)){
+                        $this->SecondaryCategoryIds = $row->item;
+                    }else{
+                        $this->SecondaryCategoryIds = $row;
+                    }
+                    break;
                 default:
                     $this->$key = $row;
                     break;
