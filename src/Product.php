@@ -77,7 +77,7 @@ class Product{
         foreach($data as $key=>$row){
             switch($key){
                 case 'SecondaryCategoryIds':
-                    if(is_array($row->item)){
+                    if(isset($row->item) && is_array($row->item)){
                         $this->SecondaryCategoryIds = $row->item;
                     }else{
                         $this->SecondaryCategoryIds = $row;
