@@ -207,6 +207,10 @@ class Wannafind{
         return $this->callApi("User_Create",array("UserData"=>$user));
     }
 
+    function createOrder($order){
+        return $this->callApi("Order_Create",["OrderData"=>$order]);
+    }
+
     /**
      * Retrieves an order
      * 
@@ -321,6 +325,14 @@ class Wannafind{
     }
 
     /**
+     * Should update order line status. Not implemented in the wannafind API. :(
+     */
+    function updateOrderLineStatus($order_line, $status = null){
+        if($status) $order_line->Status = $status;
+        return $this->callApi("Order_UpdateLineStatus", ["OrderLineId"=>$order_line->Id, "Status"=>$order_line->Status]);
+    }
+
+    /**
      * Updates the comment on an order.
      * 
      * @param \inkpro\wannafind\Order $order The order to update.
@@ -379,6 +391,22 @@ class Wannafind{
 
     function getProductDeliveryTimes(){
         return $this->callApi("Product_GetDeliveryTimeAll");
+    }
+
+    function getDiscounts(){
+        return $this->callApi("Discount_GetAll");
+    }
+
+    function getPaymentMethods(){
+        return $this->callApi("Payment_GetAll");
+    }
+
+    function updateDroppointId($order, $droppoint_id){
+        if($return = $this->callApi("Delivery_UpdateDropPoint", ["OrderId"=>$order->Id, "DropPointId"=>$droppoint_id])){
+            $order->Delivery->DroppointId = $droppoint_id;
+            return $return;
+        }
+        return false;
     }
 }
 ?>
