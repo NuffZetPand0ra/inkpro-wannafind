@@ -338,8 +338,14 @@ class Wannafind{
      * @param \inkpro\wannafind\Order $order The order to update.
      * @param string $comment Optional. If you haven't updated your order object, you can supply this.
      */
-    function updateOrderComment($order, $comment = null){
-        if($comment) $order->OrderComment = $comment;
+    function updateOrderComment($order, $comment = null, $append = false){
+        if($comment){
+            if($append){
+                $order->OrderComment = strlen($order->OrderComment) > 0 ? $order->OrderComment."\n".$comment : $comment;
+            }else{
+                $order->OrderComment = $comment;
+            }
+        }
         return $this->callApi("Order_UpdateComment", ["OrderId"=>$order->Id, "Text"=>$order->OrderComment]);
     }
 
