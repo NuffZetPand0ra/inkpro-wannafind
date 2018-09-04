@@ -62,7 +62,6 @@ class Wannafind{
      * @return mixed The response from the API.
      */
     private function callApi($call, $settings=array()){
-        // TODO: Remove response logic, and just return the API response.
         $response = $this->client->$call($settings);
         $responseName = $call."Result";
         switch(true){
@@ -219,7 +218,7 @@ class Wannafind{
      */
     function getOrder($orderId){
         $order = $this->callApi("Order_GetById",array("OrderId"=>$orderId));
-        $return = new Order($order); // 576100
+        $return = new Order($order);
         return $return;
     }
 
@@ -325,7 +324,10 @@ class Wannafind{
     }
 
     /**
-     * Should update order line status. Not implemented in the wannafind API. :(
+     * Updates orderline status.
+     * 
+     * @param \inkpro\wannafind\OrderLine $order_line Orderline to update. Must have Id property.
+     * @param int $status Optional. If you haven't updated your order object, you can supply this.
      */
     function updateOrderLineStatus($order_line, $status = null){
         if($status) $order_line->Status = $status;
