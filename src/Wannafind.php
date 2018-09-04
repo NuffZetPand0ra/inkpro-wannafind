@@ -48,9 +48,9 @@ class Wannafind{
         }
         $client->Solution_Connect($credentials);
         $this->client = $client;
-        $this->setFields("User",array("Id","Firstname","Lastname","Email"));
+        /*$this->setFields("User",array("Id","Firstname","Lastname","Email"));
         $this->setFields("Order",array("Id","OrderLines","User","Customer"));
-        $this->setFields("Product",array("Id","Ean","Price","BuyingPrice","CategoryId","Title"));
+        $this->setFields("Product",array("Id","Ean","Price","BuyingPrice","CategoryId","Title"));*/
         return true;
     }
 
