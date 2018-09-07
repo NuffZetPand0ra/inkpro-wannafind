@@ -123,6 +123,10 @@ class Wannafind{
         return false;
     }
 
+    function getProductsByIds(array $ids) : ?array {
+        return $this->callApi("Product_GetByIds", ["ProductIds"=>implode(",", $ids)]);
+    }
+
     /**
      * Updates a product.
      * 
@@ -415,6 +419,18 @@ class Wannafind{
             return $return;
         }
         return false;
+    }
+
+    function getAllCustomData(){
+        return $this->callApi("Product_GetCustomDataAll");
+    }
+
+    function getCustomDataByType(int $type_id){
+        return $this->callApi("Product_GetCustomDataByType", ["CustomDataTypeId"=>$type_id]);
+    }
+
+    function getAllAdditionalTypes(){
+        return $this->callApi("Product_GetAdditionalTypesAll");
     }
 }
 ?>
