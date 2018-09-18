@@ -71,6 +71,9 @@ class Wannafind{
             case isset($response->$responseName->item):
                 return $response->$responseName->item;
                 break;
+            case is_object($response->$responseName):
+                return $response->$responseName;
+                break;
             default:
                 return $response->$responseName;
                 break;
@@ -251,6 +254,8 @@ class Wannafind{
             foreach($response as $order){
                 $orders[] = new Order($order);
             }
+        }elseif(is_object($response) && count((array)$response) > 0){
+            $orders[] = new Order($response);
         }
         return $orders;
     }
